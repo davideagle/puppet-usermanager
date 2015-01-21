@@ -1,0 +1,17 @@
+{
+  "name": "davideagle-usermanager",
+  "version": "0.1.0",
+  "author": "davideagle",
+  "summary": "local users, groups and keys",
+  "license": "Apache 2.0",
+  "source": "https://github.com/davideagle/puppet-usermanager",
+  "project_page": "https://github.com/davideagle/puppet-usermanager",
+  "issues_url": "https://github.com/davideagle/puppet-usermanager/issues",
+  "dependencies": [
+    {
+      "name": "puppetlabs-stdlib",
+      "version_range": ">= 1.0.0"
+    }
+  ]
+}
+
