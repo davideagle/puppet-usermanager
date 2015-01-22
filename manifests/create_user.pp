@@ -4,13 +4,14 @@
 #
 # Parameters:
 # - $uid is the userid
-# - $ensure 
+# - $ensure  
 # - $shell
-# - $groups
-# - $password
-# - $managehome
-# - $home
-# - $comment
+# - $groups additional groups for user that will be created if not present
+# - $password hash
+# - $managehome defualt is true
+# - $home directory for user, default is /home/username
+# - $comment for the user
+# - $sshkey source file
 #
 
 define usermanager::create_user(
