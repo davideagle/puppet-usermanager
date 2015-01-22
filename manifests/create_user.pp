@@ -79,7 +79,7 @@ define usermanager::create_user(
     # Create authorized_keys file
     file { "${_home_path}/.ssh/authorized_keys":
       ensure  => present,
-      content => $sshkey,
+      source  => $sshkey,
       owner   => $uid,
       group   => $uid,
       mode    => '0600',
