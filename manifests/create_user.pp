@@ -52,9 +52,12 @@ define usermanager::create_user(
   
   # Create groups for user
   if $groups{
-    usermanager::create_group{$groups:
-      ensure => present,
+    if ! defined_with_params(Usermanager::Create_group, {'ensure' => 'present'}){
+      usermanager::create_group{$groups:
+        ensure => present,
+      }
     }
+    
   }
   
   file { $_home_path:
