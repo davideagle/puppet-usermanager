@@ -1,4 +1,4 @@
-# Definition: usermanager::user
+# Definition: usermanager::create_user
 #
 # Manage deployment of users and groups.
 #
@@ -13,7 +13,7 @@
 # - $comment
 #
 
-define usermanager::user(
+define usermanager::create_user(
   $uid        = undef,  
   $ensure     = 'present', 
   $shell      = '/bin/bash', 
@@ -24,31 +24,28 @@ define usermanager::user(
   $comment    = undef,
 ){
   
+  $_home_path = undef
+  
   if $home {
-    $_home = $home
+    $_home_path = $home
   }  else {
-    $_home = "/home/${uid}"
+    $_home_path = "/home/${uid}"
   }
   
-  user{ $title:
+  user{ "$title":
     ensure => $ensure,
     uid    => $uid,
     gid    => $uid,
-    home   => $_home,
+    home   => $_home_path,
     comment => $comment,
     shell   => $shell,
     groups  => $groups,
     managehome => $managehome,
-    require    => Usermanager::Group[$uid],
+    require    => Usermanager::Create_group[$uid],
   }
 
   
-  usermanager::group { $title:
-    ensure => $ensure,
-    gid    => $uid,
-  }
-  
-  file { $_home:
+  file { $_home_path:
     ensure => directory,
     owner  => $uid,
     group  => $uid,

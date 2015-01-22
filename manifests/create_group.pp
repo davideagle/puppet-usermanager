@@ -1,4 +1,4 @@
-# Definition: usermanager::user
+# Definition: usermanager::create_group
 #
 # Manage deployment of users and groups.
 #
@@ -8,7 +8,7 @@
 # - $ensure
 # - $system
 #
-define usermanager::group(
+define usermanager::create_group(
   $ensure = present,
   $gid    = undef,
   $system = false,
