@@ -31,7 +31,7 @@ define usermanager::create_user(
     $_home_path = "/home/${uid}"
   }
   
-  user{ "$title":
+  user{ $title:
     ensure     => $ensure,
     uid        => $uid,
     gid        => $uid,
@@ -40,9 +40,12 @@ define usermanager::create_user(
     shell      => $shell,
     groups     => $groups,
     managehome => $managehome,
-    require    => Usermanager::Create_group[$uid],
+    require    => Usermanager::Create_group[$title],
   }
-
+  
+  usermanager::create_group{ $title:
+    gid => $uid,
+  }
   
   file { $_home_path:
     ensure => directory,
