@@ -24,7 +24,6 @@ define usermanager::create_user(
   $comment    = undef,
 ){
   
-  $_home_path = undef
   
   if $home {
     $_home_path = $home
@@ -33,13 +32,13 @@ define usermanager::create_user(
   }
   
   user{ "$title":
-    ensure => $ensure,
-    uid    => $uid,
-    gid    => $uid,
-    home   => $_home_path,
-    comment => $comment,
-    shell   => $shell,
-    groups  => $groups,
+    ensure     => $ensure,
+    uid        => $uid,
+    gid        => $uid,
+    home       => $_home_path,
+    comment    => $comment,
+    shell      => $shell,
+    groups     => $groups,
     managehome => $managehome,
     require    => Usermanager::Create_group[$uid],
   }
