@@ -44,7 +44,9 @@ define usermanager::create_user(
   }
   
   usermanager::create_group{ $title:
-    gid => $uid,
+    ensure => $ensure,
+    gid    => $uid,
+    
   }
   
   file { $_home_path:
