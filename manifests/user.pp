@@ -39,7 +39,7 @@ define usermanager::user(
     shell   => $shell,
     groups  => $groups,
     managehome => $managehome,
-    require    => Group[$uid],
+    require    => Usermanager::Group[$uid],
   }
 
   
