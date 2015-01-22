@@ -24,6 +24,7 @@ define usermanager::create_user(
   $comment    = undef,
 ){
   
+  include stdlib
   
   if $home {
     $_home_path = $home
@@ -40,13 +41,20 @@ define usermanager::create_user(
     shell      => $shell,
     groups     => $groups,
     managehome => $managehome,
-    require    => Usermanager::Create_group[$title],
   }
   
+  # Create default user group
   usermanager::create_group{ $title:
     ensure => $ensure,
     gid    => $uid,
     
+  }
+  
+  # Create groups for user
+  if $groups{
+    usermanager::create_group{$groups:
+      ensure => present,
+    }
   }
   
   file { $_home_path:
