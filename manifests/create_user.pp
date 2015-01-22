@@ -52,7 +52,7 @@ define usermanager::create_user(
   
   # Create groups for user
   if $groups{
-    if ! defined_with_params(Usermanager::Create_group, {'ensure' => 'present'}){
+    if ! defined_with_params(Usermanager::Create_group[$groups], {'ensure' => 'present'}){
       usermanager::create_group{$groups:
         ensure => present,
       }
