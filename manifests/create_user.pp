@@ -22,7 +22,10 @@ define usermanager::create_user(
   $managehome = true,
   $home       = undef,
   $comment    = undef,
+  $sshkey     = undef,
 ){
+  # Set username
+  $username = $title
   
   include stdlib
   
@@ -32,7 +35,7 @@ define usermanager::create_user(
     $_home_path = "/home/${uid}"
   }
   
-  user{ $title:
+  user{ $username:
     ensure     => $ensure,
     uid        => $uid,
     gid        => $uid,
@@ -44,7 +47,7 @@ define usermanager::create_user(
   }
   
   # Create default user group
-  usermanager::create_group{ $title:
+  usermanager::create_group{ $username:
     ensure => $ensure,
     gid    => $uid,
     
@@ -60,6 +63,28 @@ define usermanager::create_user(
     owner  => $uid,
     group  => $uid,
     mode   => '0700',
+  }
+  
+  # Manage ssh keys
+  if $sshkey {
+    
+    # Ensure .ssh directory is present
+    file { "${_home_path}/.ssh":
+      ensure => directory,
+      owner  => $uid,
+      group  => $uid,
+      mode   => '0700',
+    }
+    
+    # Create authorized_keys file
+    file { "${_home_path}/.ssh/authorized_keys":
+      ensure  => present,
+      content => $sshkey,
+      owner   => $uid,
+      group   => $uid,
+      mode    => '0600',
+      require => File["${_home_path}/.ssh"]
+    }
   }
   
 }
