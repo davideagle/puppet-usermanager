@@ -52,12 +52,6 @@ define usermanager::create_user(
   
   # Create groups for user
   if $groups{
-    # Check if group has been 
-    #if ! defined_with_params(Usermanager::Create_group[$groups], {'ensure' => 'present'}){
-    #  usermanager::create_group{$groups:
-    #    ensure => present,
-    #  }
-    #}
     ensure_resource(Usermanager::Create_group, $groups, {'ensure' => 'present'})
   }
   
