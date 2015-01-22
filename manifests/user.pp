@@ -30,7 +30,7 @@ define usermanager::user(
     $_home = "/home/${uid}"
   }
   
-  ::user{ $title:
+  user{ $title:
     ensure => $ensure,
     uid    => $uid,
     gid    => $uid,

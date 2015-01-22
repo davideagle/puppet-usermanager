@@ -15,7 +15,7 @@ define usermanager::group(
   
 
 ){
-  ::group{ $title:
+  group{ $title:
     ensure => $ensure,
     gid    => $gid,
     system => $system,
