@@ -32,7 +32,7 @@ define usermanager::create_user(
   if $home {
     $_home_path = $home
   }  else {
-    $_home_path = "/home/${uid}"
+    $_home_path = "/home/${username}"
   }
   
   user{ $username:
