@@ -40,6 +40,7 @@ define usermanager::create_user(
     ensure     => $ensure,
     uid        => $uid,
     gid        => $uid,
+    password   => $password,
     home       => $_home_path,
     comment    => $comment,
     shell      => $shell,
