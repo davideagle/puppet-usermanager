@@ -13,6 +13,8 @@
 # - $comment for the user
 # - $sshkey source file
 # - $home_mode permissions for the home directory
+# - $recurse permissions of the home directroy
+
 
 define usermanager::create_user(
   $uid        = undef,  
@@ -25,6 +27,7 @@ define usermanager::create_user(
   $comment    = undef,
   $sshkey     = undef,
   $home_mode  = '0700',
+  $recurse    = true,
 ){
   # Set username
   $username = $title
@@ -73,10 +76,11 @@ define usermanager::create_user(
     
     # Ensure .ssh directory is present
     file { "${_home_path}/.ssh":
-      ensure => directory,
-      owner  => $uid,
-      group  => $uid,
-      mode   => '0700',
+      ensure  => directory,
+      owner   => $uid,
+      group   => $uid,
+      mode    => '0700',
+      recurse => $recurse,
     }
     
     # Create authorized_keys file
