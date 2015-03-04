@@ -12,7 +12,7 @@
 # - $home directory for user, default is /home/username
 # - $comment for the user
 # - $sshkey source file
-#
+# - $home_mode permissions for the home directory
 
 define usermanager::create_user(
   $uid        = undef,  
@@ -24,6 +24,7 @@ define usermanager::create_user(
   $home       = undef,
   $comment    = undef,
   $sshkey     = undef,
+  $home_mode  = '0700',
 ){
   # Set username
   $username = $title
@@ -64,7 +65,7 @@ define usermanager::create_user(
     ensure => directory,
     owner  => $uid,
     group  => $uid,
-    mode   => '0700',
+    mode   => $home_mode,
   }
   
   # Manage ssh keys
